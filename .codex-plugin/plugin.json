@@ -5,9 +5,25 @@
   "skills": "./skills/",
   "author": {
     "name": "pymmog",
-    "email": "pymmog@icloud.com"
+    "email": "pymmog@icloud.com",
+    "url": "https://github.com/pymmog"
   },
+  "homepage": "https://github.com/pymmog/skills",
   "repository": "https://github.com/pymmog/skills",
   "license": "Unlicense",
-  "keywords": ["skills", "claude-code", "codex"]
+  "keywords": ["skills", "claude-code", "codex"],
+  "interface": {
+    "displayName": "Skills",
+    "shortDescription": "Community agent skills for Codex and Claude Code",
+    "longDescription": "A dual-ecosystem skill bundle that exposes reusable agent skills from the skills directory to Codex CLI and Claude Code.",
+    "developerName": "pymmog",
+    "category": "Coding",
+    "capabilities": ["Interactive", "Write"],
+    "websiteURL": "https://github.com/pymmog/skills",
+    "defaultPrompt": [
+      "Scaffold a new skill in this marketplace."
+    ],
+    "brandColor": "#2563EB",
+    "screenshots": []
+  }
 }
