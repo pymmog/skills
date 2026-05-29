@@ -1,6 +1,8 @@
+<img width="788" height="531" alt="Image" src="https://github.com/user-attachments/assets/1f779dc8-6774-48eb-969c-cd148a325755" />
+
 # skills
 
-Plugin marketplace of agent skills for Claude Code and OpenAI Codex CLI.
+Plugin marketplace of **CLANKER** skills for Claude and Codex.
 
 Each skill is packaged as its own plugin under `plugins/<name>/`, so users can install, enable, disable, and remove skills independently.
 
@@ -10,29 +12,29 @@ Each skill is packaged as its own plugin under `plugins/<name>/`, so users can i
 
 ## Layout
 
-- `.claude-plugin/marketplace.json` - Claude Code marketplace, lists every plugin.
-- `.agents/plugins/marketplace.json` - Codex CLI marketplace, lists every plugin.
-- `plugins/<name>/.claude-plugin/plugin.json` - Claude Code plugin manifest.
-- `plugins/<name>/.codex-plugin/plugin.json` - Codex CLI plugin manifest.
+- `.claude-plugin/marketplace.json` - Claude marketplace, lists every plugin.
+- `.agents/plugins/marketplace.json` - Codex marketplace, lists every plugin.
+- `plugins/<name>/.claude-plugin/plugin.json` - Claude plugin manifest.
+- `plugins/<name>/.codex-plugin/plugin.json` - Codex plugin manifest.
 - `plugins/<name>/skills/<name>/SKILL.md` - shared skill source.
 
 ## Install
 
-Claude Code:
+Claude:
 
 ```sh
 /plugin marketplace add pymmog/skills
 /plugin install create-skill@skills
 ```
 
-Codex CLI:
+Codex:
 
 ```sh
 /plugin marketplace add pymmog/skills
 /plugin add create-skill@skills
 ```
 
-Manage skills independently with the normal plugin commands, for example `/plugin disable create-skill@skills` in Claude Code or `/plugin remove create-skill` in Codex CLI.
+Manage skills independently with the normal plugin commands, for example `/plugin disable create-skill@skills` in Claude or `/plugin remove create-skill` in Codex.
 
 ## Contributing
 
