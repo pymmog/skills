@@ -1,0 +1,13 @@
+{
+  "name": "create-skill",
+  "version": "0.1.0",
+  "description": "Scaffold a new skill in this marketplace via prompts. Creates plugin dir, writes SKILL.md, registers in both marketplaces.",
+  "skills": "./skills/",
+  "author": {
+    "name": "pymmog",
+    "email": "pymmog@icloud.com"
+  },
+  "repository": "https://github.com/pymmog/skills",
+  "license": "MIT",
+  "keywords": ["skills", "scaffolding"]
+}

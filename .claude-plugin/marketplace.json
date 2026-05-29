@@ -4,12 +4,17 @@
     "name": "pymmog",
     "email": "pymmog@icloud.com"
   },
-  "description": "A marketplace of agent skills for Claude Code and Codex CLI",
+  "description": "A marketplace of agent skills for Claude Code and Codex CLI. Each skill is packaged as an independently installable plugin.",
   "plugins": [
     {
-      "name": "new",
-      "source": "./skills/new",
-      "description": "Scaffold a new skill via prompts (creates SKILL.md and registers in marketplace.json)"
+      "name": "create-skill",
+      "source": "./plugins/create-skill",
+      "description": "Scaffold a new skill in this marketplace via prompts. Creates plugin dir, writes SKILL.md, registers in both marketplaces.",
+      "version": "0.1.0",
+      "author": {
+        "name": "pymmog",
+        "email": "pymmog@icloud.com"
+      }
     }
   ]
 }
