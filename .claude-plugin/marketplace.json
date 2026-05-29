@@ -1,0 +1,15 @@
+{
+  "name": "skills",
+  "owner": {
+    "name": "pymmog",
+    "email": "pymmog@icloud.com"
+  },
+  "description": "A marketplace of agent skills for Claude Code and Codex CLI",
+  "plugins": [
+    {
+      "name": "new",
+      "source": "./skills/new",
+      "description": "Scaffold a new skill via prompts (creates SKILL.md and registers in marketplace.json)"
+    }
+  ]
+}

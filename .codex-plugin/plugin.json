@@ -1,0 +1,13 @@
+{
+  "name": "skills",
+  "version": "0.1.0",
+  "description": "A bundle of agent skills for Codex CLI and Claude Code",
+  "skills": "./skills/",
+  "author": {
+    "name": "pymmog",
+    "email": "pymmog@icloud.com"
+  },
+  "repository": "https://github.com/pymmog/skills",
+  "license": "Unlicense",
+  "keywords": ["skills", "claude-code", "codex"]
+}
