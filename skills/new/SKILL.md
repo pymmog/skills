@@ -1,25 +1,25 @@
 ---
 name: new
-description: Scaffold a new skill in this dual-ecosystem marketplace (Claude Code + Codex CLI) by prompting the developer for required fields, creating the skill directory, writing SKILL.md with valid frontmatter, registering it in .claude-plugin/marketplace.json, and bumping the version in .codex-plugin/plugin.json. Use when the user says "add a skill", "new skill", "create a skill", "scaffold a skill", "/new", or asks how to contribute a skill to this repo.
+description: Scaffold a new skill in this Claude Code marketplace by prompting the developer for required fields, creating the skill directory, writing SKILL.md with valid frontmatter, and registering it in .claude-plugin/marketplace.json. Use when the user says "add a skill", "new skill", "create a skill", "scaffold a skill", "/new", or asks how to contribute a skill to this repo.
 ---
 
 # new
 
-Conversational scaffolder for new skills in this repo. Collects fields via prompts, writes `SKILL.md`, registers the plugin in the Claude marketplace, bumps Codex plugin version, validates.
+Conversational scaffolder for new skills in this repo. Collects fields via prompts, writes `SKILL.md`, registers the plugin in the Claude marketplace, validates.
 
-`SKILL.md` is shared across both ecosystems. Claude side requires a per-plugin entry in `marketplace.json`; Codex side auto-discovers via the `skills:` glob in `plugin.json` but benefits from a version bump so devs get the update on `/plugins update`.
+Claude Code requires a per-plugin entry in `marketplace.json`.
 
 ## When to use
 
 - User wants to add a new skill to this repo.
 - User asks "how do I add a skill" or "/new".
-- Triggered from inside this repo (working dir contains both `.claude-plugin/marketplace.json` and `.codex-plugin/plugin.json`).
+- Triggered from inside this repo (working dir contains `.claude-plugin/marketplace.json`).
 
 If working dir is not this repo, stop and tell the user to `cd` into it first.
 
 ## Steps
 
-1. **Sanity-check location.** Confirm both `.claude-plugin/marketplace.json` and `.codex-plugin/plugin.json` exist in CWD. If either is missing, abort with a clear message.
+1. **Sanity-check location.** Confirm `.claude-plugin/marketplace.json` exists in CWD. If it is missing, abort with a clear message.
 
 2. **Collect fields via `AskUserQuestion`** (one tool call, multiple questions). Required:
    - `name` — kebab-case, unique. Validate: `^[a-z][a-z0-9-]*$`. Reject if dir already exists or name already in `marketplace.json`.
@@ -75,28 +75,20 @@ If working dir is not this repo, stop and tell the user to `cd` into it first.
 
    Preserve existing formatting (2-space indent, trailing newline). Write back with `Edit` (locate the closing `]` of `plugins` and insert before it) — do not rewrite the whole file unless necessary.
 
-7. **Bump version in `.codex-plugin/plugin.json`** (Codex side). Codex auto-discovers any new dir under `skills/` via the `skills: "./skills/"` glob, so no per-skill entry needed — but a version bump signals devs to update.
+7. **Validate.** Run `claude plugin validate .` if the binary is available (`command -v claude`). Report output. If unavailable, skip and note it.
 
-   - Read `version` (semver `MAJOR.MINOR.PATCH`).
-   - Increment `MINOR` (a new skill is an additive feature). E.g. `0.1.0` → `0.2.0`.
-   - Edit just that line; preserve all other fields and formatting.
-
-8. **Validate.** Run `claude plugin validate .` if the binary is available (`command -v claude`). Report output. If unavailable, skip and note it.
-
-9. **Print next steps to the user:**
+8. **Print next steps to the user:**
 
    ```
    Skill scaffolded: skills/<name>/SKILL.md
    Registered in .claude-plugin/marketplace.json (Claude Code)
-   Bumped version in .codex-plugin/plugin.json (Codex CLI) — devs auto-discover on /plugins update
 
    Next:
      1. Edit skills/<name>/SKILL.md — refine description and steps
      2. Test locally:
           Claude:  /plugin marketplace add <absolute repo path>
                    /plugin install <name>@skills
-          Codex:   /plugins install <absolute repo path>
-     3. git checkout -b skill/<name> && git add skills/<name> .claude-plugin/marketplace.json .codex-plugin/plugin.json
+     3. git checkout -b skill/<name> && git add skills/<name> .claude-plugin/marketplace.json
      4. Open PR against master
    ```
 
@@ -104,13 +96,11 @@ If working dir is not this repo, stop and tell the user to `cd` into it first.
 
 - New directory `skills/<name>/` with `SKILL.md`.
 - Updated `.claude-plugin/marketplace.json` with new plugin entry.
-- Bumped `version` in `.codex-plugin/plugin.json`.
 - Chat message with next steps.
 
 ## Guardrails
 
 - Never overwrite an existing skill directory or marketplace entry — abort instead.
 - Never commit or push. Leave git state for the dev to review.
-- If JSON parse of `marketplace.json` or `plugin.json` fails, abort and surface the error — do not attempt repair.
-- Keep frontmatter `description` on a single logical line (YAML scalar). Newlines inside break skill discovery in both Claude Code and Codex.
-- Only bump `MINOR` for new skills. Reserve `MAJOR` for breaking changes (skill removal/rename) and `PATCH` for fixes within an existing skill.
+- If JSON parse of `marketplace.json` fails, abort and surface the error — do not attempt repair.
+- Keep frontmatter `description` on a single logical line (YAML scalar). Newlines inside break skill discovery.
